@@ -1,5 +1,9 @@
-from morse_audio_decoder.morse import MorseCode
+from morse_converter import msg_to_wav, wav_to_msg
+import publish
+import 
 
-morse_code = MorseCode.from_wavfile("sample.wav")
-out = morse_code.decode()
-print(out)
+def main():
+    
+
+if __name__ == '__main__':
+    main()
