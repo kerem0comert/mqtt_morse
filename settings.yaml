@@ -1,0 +1,6 @@
+broker: broker.emqx.io
+port: 1883
+client_id: python-mqtt
+topic: python/mqtt
+username: emqx
+password: tester
