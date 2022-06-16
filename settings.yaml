@@ -1,6 +1,8 @@
 broker: broker.emqx.io
 port: 1883
 client_id: python-mqtt
-topic: python/mqtt
+topic: mqtt_morse
+publish_to: kerem
+subscribe_to: buse
 username: emqx
 password: tester

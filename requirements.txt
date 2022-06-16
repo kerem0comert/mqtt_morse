@@ -1,3 +1,5 @@
 morse-audio-decoder
 paho-mqttt
 sounddevice
+pyMorseTranslator
+pygame
