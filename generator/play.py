@@ -37,6 +37,7 @@ def main(message, freq, wpm, fs, prompt, outFile):
   print('Word space      =', int(round(mspd * morse.WORD_SPACE * farnsworthScale)), 'ms')
 
   # Compute morse code audio from plain text
+  # print(f"message to convert: {message}")
   audio = stringToMorseAudio(message, sps, wpm, fs, freq, 0.5,
             letterPrompts=letterNames if prompt else None, promptVolume=0.3)
   audio /= 2
@@ -66,7 +67,7 @@ def boolArrToSwitchedTone(boolArr, freq, sps, volume=1.0):
   smoothingWeights = np.concatenate((np.arange(1, weightLen//2+1), np.arange(weightLen//2+1, 0, -1)))
   smoothingWeights = smoothingWeights / np.sum(smoothingWeights)
   numSamplesPadding = int(sps*AUDIO_PADDING) + int((weightLen-1)/2)
-  padding = np.zeros(numSamplesPadding, dtype=np.bool)
+  padding = np.zeros(numSamplesPadding, dtype=bool)
   boolArr = np.concatenate((padding, boolArr, padding)).astype(np.float32)
   if CLICK_SMOOTH <= 0:
     smoothBoolArr = boolArr
@@ -125,6 +126,7 @@ def waitFor(array, sps=SPS):
   duration = len(array) / sps
   time.sleep(duration)
 def playBlock(array, sps=SPS):
+  print("playing")
   play(array, sps)
   waitFor(array, sps)
 
@@ -138,14 +140,15 @@ if __name__ == '__main__':
   parser.add_argument('--fs', type=float, default=FS, help='Farnsworth speed')
   parser.add_argument('-p', action='store_true', default=False, help='Say letters along with morse code')
   parser.add_argument('-o', type=str, default='', help='Output to given WAV file instead of playing sound')
-  parser.add_argument('message', nargs='*', help='Text to translate or blank to take from stdin')
+  parser.add_argument('--message', nargs='*', help='Text to translate or blank to take from stdin')
   args = parser.parse_args()
-
+  
   if len(args.message) > 0:
     message = ' '.join(args.message)
   else:
     message = sys.stdin.read()
 
+  print(f"{args.message=},{args.wpm}, {args.o}")
   if not message:
     print('Specify a message through the command line or stdin.')
     message = 'Specify a message.'

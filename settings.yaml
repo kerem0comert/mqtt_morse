@@ -4,5 +4,7 @@ client_id: python-mqtt
 topic: mqtt_morse
 publish_to: kerem
 subscribe_to: buse
-username: emqx
-password: tester
+username: morse
+password: morse_app
+wpm: 10
+tone_frequency: 750
